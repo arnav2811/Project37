@@ -41,7 +41,7 @@ function setup() {
 
   feed = createButton("Feed Dog")
   feed.position(200, 95)
-  feed.mousePressed(feed1)
+  feed.mousePressed(feedDog)
  
   addFood = createButton("Add Food")
   addFood.position(300, 95)
