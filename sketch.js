@@ -9,6 +9,7 @@ var name
 var changegameState, readgameState
 var bedImg, gardenImg, washroomImg
 var gameState
+var currentTime
 
 function preload()
 {
@@ -60,14 +61,40 @@ function draw() {
   fedTime.on('value',function(data){
     lastFed = data.val()
   })
-  if(gameState!== "hungry"){
+  if(gameState!== "Hungry"){
     feed.hide()
     addFood.hide()
     dog.remove()
   }else {
     feed.show()
     addFood.show()
-    dog.add(dogImg)
+    dog.addImage(dogImg)
+  }
+  currentTime = hour()
+  if(currentTime === (lastFed+1)){
+    database.ref('/').update({
+      gameState: "Playing"
+    })
+    //update("Playing")
+    foodObj.garden()
+  }else if(currentTime === (lastFed+2)){
+    database.ref('/').update({
+      gameState: "Sleeping"
+    })
+    //update("Sleeping")
+    foodObj.bedroom()
+  }else if(currentTime > (lastFed+3)&& currentTime <= (lastFed+4)){
+    database.ref('/').update({
+      gameState: "Bathing"
+    })
+    //update("Bathing")
+    foodObj.washroom()
+  }else{
+    database.ref('/').update({
+      gameState: "Hungry"
+    })
+    //update("Hungry")
+    foodObj.display()
   }
 
   drawSprites();
