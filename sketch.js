@@ -64,11 +64,11 @@ function draw() {
   if(gameState!== "Hungry"){
     feed.hide()
     addFood.hide()
-    dog.remove()
+    dog.visible = false
   }else {
     feed.show()
     addFood.show()
-    dog.addImage(dogImg)
+    dog.visible = true
   }
   currentTime = hour()
   if(currentTime === (lastFed+1)){
